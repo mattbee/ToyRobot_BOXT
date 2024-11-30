@@ -5,6 +5,8 @@ require_relative "position"
 class Robot
   attr_accessor :position
 
+  LEFT_TURNS = %w[NORTH WEST SOUTH EAST].freeze
+
   def initialize
     @position = nil
   end
@@ -15,5 +17,21 @@ class Robot
     @position.x_coordinate = x_coordinate
     @position.y_coordinate = y_coordinate
     @position.direction = direction
+  end
+
+  def left
+    @position.direction = get_next_direction(left_turns_cycle_enum, @position.direction)
+  end
+
+  private
+
+  def left_turns_cycle_enum
+    LEFT_TURNS.cycle
+  end
+
+  def get_next_direction(enum, current_direction)
+    until enum.next == current_direction
+    end
+    enum.next
   end
 end

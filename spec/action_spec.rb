@@ -41,30 +41,38 @@ RSpec.describe Action do
   end
 
   describe "#process_command" do
-    it "updates robot position when PLACE passed" do
-      robot = instance_double("Robot")
-      board = instance_double("Board")
-      action = Action.new(robot, board)
+    let(:robot) { instance_double("Robot") }
+    let(:board) { instance_double("Board") }
+    let(:subject) { Action.new(robot, board) }
 
+    it "updates robot position when PLACE passed" do
       allow(board).to receive(:valid_position?).with(0, 0).and_return(true)
       allow(board).to receive(:update_board)
 
       expect(robot).to receive(:update_position).with(0, 0, "EAST")
 
-      action.process_command("PLACE 0,0,EAST")
+      subject.process_command("PLACE 0,0,EAST")
     end
 
     it "updates board position when PLACE passed" do
-      robot = instance_double("Robot")
-      board = instance_double("Board")
-      action = Action.new(robot, board)
-
       allow(board).to receive(:valid_position?).with(0, 0).and_return(true)
       allow(robot).to receive(:update_position)
 
       expect(board).to receive(:update_board).with(0, 0)
 
-      action.process_command("PLACE 0,0,EAST")
+      subject.process_command("PLACE 0,0,EAST")
+    end
+
+    context "when LEFT passed" do
+      it "calls left on robot" do
+        allow(board).to receive(:valid_position?).with(0, 0).and_return(true)
+        allow(board).to receive(:update_board)
+        allow(robot).to receive(:update_position)
+
+        expect(robot).to receive(:left)
+
+        subject.process_command("LEFT")
+      end
     end
   end
 end

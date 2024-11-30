@@ -20,14 +20,17 @@ class Action
   end
 
   def process_command(command)
-    return unless command.start_with?("PLACE")
+    if command.start_with?("PLACE")
 
-    place_command = command.split
-    coords = place_command[1].split(",")
+      place_command = command.split
+      coords = place_command[1].split(",")
 
-    return unless board.valid_position?(coords[0].to_i, coords[1].to_i)
+      return unless board.valid_position?(coords[0].to_i, coords[1].to_i)
 
-    update_robot_and_board(*coords)
+      update_robot_and_board(*coords)
+    else
+      robot.public_send(command.downcase)
+    end
   end
 
   def instructions
