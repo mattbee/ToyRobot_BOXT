@@ -74,4 +74,32 @@ RSpec.describe Robot do
       expect(robot.position.direction).to eq("NORTH")
     end
   end
+
+  describe "#right" do
+    let(:robot) { Robot.new }
+
+    it "turns from NORTH to EAST" do
+      robot.update_position(3, 4, "NORTH")
+      robot.right
+      expect(robot.position.direction).to eq("EAST")
+    end
+
+    it "turns from WEST to NORTH" do
+      robot.update_position(3, 4, "WEST")
+      robot.right
+      expect(robot.position.direction).to eq("NORTH")
+    end
+
+    it "turns from SOUTH to WEST" do
+      robot.update_position(3, 4, "SOUTH")
+      robot.right
+      expect(robot.position.direction).to eq("WEST")
+    end
+
+    it "turns from EAST to SOUTH" do
+      robot.update_position(3, 4, "EAST")
+      robot.right
+      expect(robot.position.direction).to eq("SOUTH")
+    end
+  end
 end

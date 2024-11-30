@@ -6,6 +6,7 @@ class Robot
   attr_accessor :position
 
   LEFT_TURNS = %w[NORTH WEST SOUTH EAST].freeze
+  RIGHT_TURNS = LEFT_TURNS.reverse
 
   def initialize
     @position = nil
@@ -23,10 +24,18 @@ class Robot
     @position.direction = get_next_direction(left_turns_cycle_enum, @position.direction)
   end
 
+  def right
+    @position.direction = get_next_direction(right_turns_cycle_enum, @position.direction)
+  end
+
   private
 
   def left_turns_cycle_enum
     LEFT_TURNS.cycle
+  end
+
+  def right_turns_cycle_enum
+    RIGHT_TURNS.cycle
   end
 
   def get_next_direction(enum, current_direction)

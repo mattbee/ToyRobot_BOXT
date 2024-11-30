@@ -74,5 +74,16 @@ RSpec.describe Action do
         subject.process_command("LEFT")
       end
     end
+
+    context "when RIGHT passed" do
+      it "calls right on robot" do
+        allow(board).to receive(:valid_position?).with(0, 0).and_return(true)
+        allow(board).to receive(:update_board)
+        allow(robot).to receive(:update_position)
+        expect(robot).to receive(:right)
+
+        subject.process_command("RIGHT")
+      end
+    end
   end
 end
