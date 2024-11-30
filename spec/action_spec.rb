@@ -112,5 +112,13 @@ RSpec.describe Action do
         subject.process_command("MOVE")
       end
     end
+
+    context "when REPORT passed" do
+      it "calls report on robot" do
+        expect(robot).to receive(:report)
+
+        subject.process_command("REPORT")
+      end
+    end
   end
 end

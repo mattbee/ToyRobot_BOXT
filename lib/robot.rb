@@ -37,6 +37,10 @@ class Robot
     end
   end
 
+  def report
+    puts "#{@position.x_coordinate},#{@position.y_coordinate},#{@position.direction}"
+  end
+
   private
 
   def left_turns_cycle_enum

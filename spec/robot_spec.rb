@@ -134,4 +134,17 @@ RSpec.describe Robot do
       expect(robot.position.y_coordinate).to eq(0)
     end
   end
+
+  describe "#report" do
+    let(:robot) { Robot.new }
+    it "prints current location" do
+      robot.update_position(0, 0, "NORTH")
+
+      expect {
+        robot.report
+      }.to output(
+        "0,0,NORTH\n"
+      ).to_stdout
+    end
+  end
 end
