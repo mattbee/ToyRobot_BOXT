@@ -16,4 +16,16 @@ RSpec.describe Board do
   it "returns false if y param out of bounds" do
     expect(subject.valid_position?(0, Board::HEIGHT + 1)).to be false
   end
+
+  it "provides an interpretation of the board through arrays" do
+    expect(subject.board).to match(
+      [
+        ["▢", "▢", "▢", "▢", "▢"],
+        ["▢", "▢", "▢", "▢", "▢"],
+        ["▢", "▢", "▢", "▢", "▢"],
+        ["▢", "▢", "▢", "▢", "▢"],
+        ["▢", "▢", "▢", "▢", "▢"]
+      ]
+    )
+  end
 end
