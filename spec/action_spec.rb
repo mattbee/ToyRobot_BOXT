@@ -49,7 +49,7 @@ RSpec.describe Action do
       allow(board).to receive(:valid_position?).with(0, 0).and_return(true)
       allow(board).to receive(:update_board)
 
-      expect(robot).to receive(:update_position).with(0, 0)
+      expect(robot).to receive(:update_position).with(0, 0, "EAST")
 
       action.process_command("PLACE 0,0,EAST")
     end

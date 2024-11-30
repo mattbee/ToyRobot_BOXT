@@ -27,7 +27,7 @@ class Action
 
     return unless board.valid_position?(coords[0].to_i, coords[1].to_i)
 
-    update_robot_and_board
+    update_robot_and_board(*coords)
   end
 
   def instructions
@@ -38,8 +38,8 @@ class Action
 
   private
 
-  def update_robot_and_board
-    robot.update_position(coords[0].to_i, coords[1].to_i)
-    board.update_board(coords[0].to_i, coords[1].to_i)
+  def update_robot_and_board(x_position, y_position, direction)
+    robot.update_position(x_position.to_i, y_position.to_i, direction)
+    board.update_board(x_position.to_i, y_position.to_i)
   end
 end

@@ -9,10 +9,11 @@ class Robot
     @position = nil
   end
 
-  def update_position(x_coordinate, y_coordinate)
-    @position ||= Position.new(x_coordinate, y_coordinate)
+  def update_position(x_coordinate, y_coordinate, direction)
+    @position ||= Position.new(x_coordinate, y_coordinate, direction)
 
     @position.x_coordinate = x_coordinate
     @position.y_coordinate = y_coordinate
+    @position.direction = direction
   end
 end

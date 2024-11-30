@@ -12,33 +12,37 @@ RSpec.describe Robot do
   describe "#update_position" do
     context "when position doesn't exist" do
       it "updates position for 0" do
-        subject.update_position(0, 0)
+        subject.update_position(0, 0, "EAST")
         expect(subject.position.x_coordinate).to eq(0)
         expect(subject.position.y_coordinate).to eq(0)
+        expect(subject.position.direction).to eq("EAST")
       end
 
       it "updates position for different coordinates" do
-        subject.update_position(3, 4)
+        subject.update_position(3, 4, "EAST")
         expect(subject.position.x_coordinate).to eq(3)
         expect(subject.position.y_coordinate).to eq(4)
+        expect(subject.position.direction).to eq("EAST")
       end
     end
 
     context "when position exists" do
       it "updates position for 0" do
-        subject.position = Position.new(0, 1)
+        subject.position = Position.new(0, 1, "NORTH")
 
-        subject.update_position(0, 0)
+        subject.update_position(0, 0, "EAST")
         expect(subject.position.x_coordinate).to eq(0)
         expect(subject.position.y_coordinate).to eq(0)
+        expect(subject.position.direction).to eq("EAST")
       end
 
       it "updates position for different coordinates" do
-        subject.position = Position.new(0, 1)
+        subject.position = Position.new(0, 1, "EAST")
 
-        subject.update_position(3, 4)
+        subject.update_position(3, 4, "NORTH")
         expect(subject.position.x_coordinate).to eq(3)
         expect(subject.position.y_coordinate).to eq(4)
+        expect(subject.position.direction).to eq("NORTH")
       end
     end
   end
