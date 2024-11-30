@@ -18,7 +18,7 @@ RSpec.describe Board do
   end
 
   it "provides an interpretation of the board through arrays" do
-    expect(subject.board).to match(
+    expect(subject.board_as_array).to match(
       [
         ["▢", "▢", "▢", "▢", "▢"],
         ["▢", "▢", "▢", "▢", "▢"],
@@ -27,5 +27,20 @@ RSpec.describe Board do
         ["▢", "▢", "▢", "▢", "▢"]
       ]
     )
+  end
+
+  describe "#update_position" do
+    it "updates robot position on the board" do
+      subject.update_board(2, 2)
+      expect(subject.board_as_array).to match(
+        [
+          ["▢", "▢", "▢", "▢", "▢"],
+          ["▢", "▢", "▢", "▢", "▢"],
+          ["▢", "▢", "X", "▢", "▢"],
+          ["▢", "▢", "▢", "▢", "▢"],
+          ["▢", "▢", "▢", "▢", "▢"]
+        ]
+      )
+    end
   end
 end

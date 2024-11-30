@@ -5,23 +5,41 @@ require_relative "../lib/robot"
 RSpec.describe Robot do
   subject { Robot.new }
 
-  it "works" do
-    expect {
-      subject
-    }.to output(
-      <<~INSTRUCTIONS
-        Please use the command PLACE X,Y,DIRECTION to start
-        Use MOVE, LEFT and RIGHT to move the robot around.
-        Type REPORT to show current position and direction.
-      INSTRUCTIONS
-    ).to_stdout
-  end
-
   it "intializes with position nil" do
     expect(subject.position).to be nil
   end
 
-  it "intializes with empty board" do
-    expect(subject.board).to eq Board.new.board
+  describe "#update_position" do
+    context "when position doesn't exist" do
+      it "updates position for 0" do
+        subject.update_position(0, 0)
+        expect(subject.position.x_coordinate).to eq(0)
+        expect(subject.position.y_coordinate).to eq(0)
+      end
+
+      it "updates position for different coordinates" do
+        subject.update_position(3, 4)
+        expect(subject.position.x_coordinate).to eq(3)
+        expect(subject.position.y_coordinate).to eq(4)
+      end
+    end
+
+    context "when position exists" do
+      it "updates position for 0" do
+        subject.position = Position.new(0, 1)
+
+        subject.update_position(0, 0)
+        expect(subject.position.x_coordinate).to eq(0)
+        expect(subject.position.y_coordinate).to eq(0)
+      end
+
+      it "updates position for different coordinates" do
+        subject.position = Position.new(0, 1)
+
+        subject.update_position(3, 4)
+        expect(subject.position.x_coordinate).to eq(3)
+        expect(subject.position.y_coordinate).to eq(4)
+      end
+    end
   end
 end
