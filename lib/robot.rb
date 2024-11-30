@@ -28,6 +28,15 @@ class Robot
     @position.direction = get_next_direction(right_turns_cycle_enum, @position.direction)
   end
 
+  def move
+    case @position.direction
+    when "NORTH" then @position.y_coordinate += 1
+    when "EAST" then @position.x_coordinate += 1
+    when "SOUTH" then @position.y_coordinate -= 1
+    when "WEST" then @position.x_coordinate -= 1
+    end
+  end
+
   private
 
   def left_turns_cycle_enum

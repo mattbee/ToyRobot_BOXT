@@ -40,6 +40,26 @@ RSpec.describe Action do
     end
   end
 
+  describe "#validate_move" do
+    let(:robot) { instance_double("Robot", position: { x_coordinate: 0, y_coordinate: 0, direction: WEST }) }
+
+    it "returns false for MOVE WEST off board" do
+      expect(subject.validate_move(0, 0, "WEST")).to be false
+    end
+
+    it "returns false for MOVE SOUTH off board" do
+      expect(subject.validate_move(0, 0, "SOUTH")).to be false
+    end
+
+    it "returns false for MOVE EAST off board" do
+      expect(subject.validate_move(4, 0, "EAST")).to be false
+    end
+
+    it "returns false for MOVE NORTH off board" do
+      expect(subject.validate_move(0, 4, "NORTH")).to be false
+    end
+  end
+
   describe "#process_command" do
     let(:robot) { instance_double("Robot") }
     let(:board) { instance_double("Board") }
@@ -65,10 +85,6 @@ RSpec.describe Action do
 
     context "when LEFT passed" do
       it "calls left on robot" do
-        allow(board).to receive(:valid_position?).with(0, 0).and_return(true)
-        allow(board).to receive(:update_board)
-        allow(robot).to receive(:update_position)
-
         expect(robot).to receive(:left)
 
         subject.process_command("LEFT")
@@ -77,12 +93,23 @@ RSpec.describe Action do
 
     context "when RIGHT passed" do
       it "calls right on robot" do
-        allow(board).to receive(:valid_position?).with(0, 0).and_return(true)
-        allow(board).to receive(:update_board)
-        allow(robot).to receive(:update_position)
         expect(robot).to receive(:right)
 
         subject.process_command("RIGHT")
+      end
+    end
+
+    context "when MOVE passed" do
+      it "calls move on robot" do
+        allow(board).to receive(:update_board)
+        allow(robot).to receive(:update_position)
+        allow(board).to receive(:valid_position?).and_return(true)
+        allow(robot).to receive_message_chain(:position, :x_coordinate).and_return(0)
+        allow(robot).to receive_message_chain(:position, :y_coordinate).and_return(0)
+        allow(robot).to receive_message_chain(:position, :direction).and_return("NORTH")
+        expect(robot).to receive(:move)
+
+        subject.process_command("MOVE")
       end
     end
   end

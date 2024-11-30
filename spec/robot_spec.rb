@@ -102,4 +102,36 @@ RSpec.describe Robot do
       expect(robot.position.direction).to eq("SOUTH")
     end
   end
+
+  describe "#move" do
+    let(:robot) { Robot.new }
+
+    it "moves 1 step north when direction north" do
+      robot.update_position(0, 0, "NORTH")
+      robot.move
+      expect(robot.position.x_coordinate).to eq(0)
+      expect(robot.position.y_coordinate).to eq(1)
+    end
+
+    it "moves 1 step east when direction east" do
+      robot.update_position(0, 0, "EAST")
+      robot.move
+      expect(robot.position.x_coordinate).to eq(1)
+      expect(robot.position.y_coordinate).to eq(0)
+    end
+
+    it "moves 1 step south when direction south" do
+      robot.update_position(0, 1, "SOUTH")
+      robot.move
+      expect(robot.position.x_coordinate).to eq(0)
+      expect(robot.position.y_coordinate).to eq(0)
+    end
+
+    it "moves 1 step west when direction west" do
+      robot.update_position(1, 0, "WEST")
+      robot.move
+      expect(robot.position.x_coordinate).to eq(0)
+      expect(robot.position.y_coordinate).to eq(0)
+    end
+  end
 end
