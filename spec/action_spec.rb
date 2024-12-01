@@ -115,6 +115,7 @@ RSpec.describe Action do
 
     context "when REPORT passed" do
       it "calls report on robot" do
+        allow(board).to receive(:board_as_array)
         expect(robot).to receive(:report)
 
         subject.process_command("REPORT")

@@ -40,6 +40,8 @@ class Action
     else
       robot.public_send(command.downcase)
     end
+
+    print_board_for_report(command)
   end
 
   def instructions
@@ -55,6 +57,10 @@ class Action
   end
 
   private
+
+  def print_board_for_report(command)
+    pp board.board_as_array if command == "REPORT"
+  end
 
   def update_robot_and_board(x_position, y_position, direction)
     robot.update_position(x_position.to_i, y_position.to_i, direction)
